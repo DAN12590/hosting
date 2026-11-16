@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Warframe Prime Tracker</title>
+    <meta name="description"
+        content="Gestiona tu colección de Warframes Prime y Armas Prime. Marca componentes, visualiza progreso y filtra por estado.">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="header-top">
+                <div class="logo">
+                    <span class="logo-icon">⚡</span>
+                    <h1>Prime Tracker</h1>
+                </div>
+
+                <div class="search-container">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" class="search-input" id="searchInput" placeholder="Buscar Prime..."
+                        autocomplete="off">
+                </div>
+
+                <div class="stats-bar">
+                    <div class="stat-item">
+                        <span class="stat-value" id="totalComplete">0</span>
+                        <span class="stat-label">Completos</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value" id="totalIncomplete">0</span>
+                        <span class="stat-label">Incompletos</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value" id="totalProgress">0%</span>
+                        <span class="stat-label">Progreso Total</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation Tabs -->
+            <nav class="nav-tabs" id="navTabs">
+                <button class="nav-tab active" data-tab="warframes">
+                    🎭 Warframes
+                    <span class="tab-count" id="warframeCount">0</span>
+                </button>
+                <button class="nav-tab" data-tab="weapons">
+                    🗡️ Armas
+                    <span class="tab-count" id="weaponCount">0</span>
+                </button>
+                <button class="nav-tab" data-tab="sentinels">
+                    🤖 Centinelas
+                    <span class="tab-count" id="sentinelCount">0</span>
+                </button>
+                <button class="nav-tab" data-tab="archwings">
+                    🚀 Archwings
+                    <span class="tab-count" id="archwingCount">0</span>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Filter Controls -->
+    <section class="controls">
+        <div class="filter-group" id="statusFilter">
+            <button class="filter-btn active" data-filter="all">Todos</button>
+            <button class="filter-btn" data-filter="complete">✅ Completos</button>
+            <button class="filter-btn" data-filter="incomplete">⏳ Incompletos</button>
+            <button class="filter-btn" data-filter="missing">❌ Faltantes</button>
+        </div>
+
+        <select class="category-select" id="categoryFilter">
+            <option value="all">Todas las categorías</option>
+        </select>
+    </section>
+
+    <!-- Data Management -->
+    <section class="controls data-controls">
+        <button class="action-btn secondary" id="exportBtn">📥 Exportar Datos</button>
+        <button class="action-btn secondary" id="importBtn">📤 Importar Datos</button>
+        <input type="file" id="importFile" accept=".json" style="display: none;">
+    </section>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="items-grid" id="itemsGrid">
+            <!-- Cards will be dynamically generated here -->
+        </div>
+    </main>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Scripts -->
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>
