@@ -1,18 +1,354 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" class="no-js">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>David Hernáez · Desarrollador Junior</title>
-  <link rel="canonical" href="https://dan12590.github.io/hosting/portfolio/">
-  <meta http-equiv="refresh" content="0; url=portfolio/">
-  <script>location.replace('portfolio/' + location.hash);</script>
-  <style>
-    body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: #0b1120; color: #cbd5e1; font-family: system-ui, sans-serif; }
-    a { color: #2dd4bf; }
-  </style>
+  <meta name="description" content="Portfolio de David Hernáez Castejón, desarrollador de software junior en Zaragoza. Java, Python, JavaScript y React. Incorporación inmediata.">
+  <meta name="author" content="David Hernáez Castejón">
+  <meta property="og:title" content="David Hernáez · Desarrollador Junior">
+  <meta property="og:description" content="Java · Python · JavaScript · React. Proyectos, stack y contacto.">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#0b1120">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <p>Redirigiendo al portfolio… <a href="portfolio/">Entrar</a></p>
+  <a class="skip" href="#main">Saltar al contenido</a>
+
+  <!-- ============ NAVEGACIÓN ============ -->
+  <header class="nav" id="top">
+    <div class="wrap nav-inner">
+      <a href="#top" class="logo" aria-label="Inicio"><span class="accent">~/</span>DAN12590<span class="caret">_</span></a>
+      <button class="menu-btn" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu">
+        <span></span><span></span><span></span>
+      </button>
+      <nav id="menu" class="menu">
+        <a href="#sobre-mi">Sobre mí</a>
+        <a href="#proyectos">Proyectos</a>
+        <a href="#stack">Stack</a>
+        <a href="#trayectoria">Trayectoria</a>
+        <a href="#contacto">Contacto</a>
+        <a class="btn btn-ghost btn-sm" href="https://github.com/DAN12590" target="_blank" rel="noopener">
+          <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-github"/></svg>GitHub
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- ============ HERO ============ -->
+    <section class="hero wrap">
+      <div class="hero-text">
+        <p class="status"><span class="dot"></span>Disponible · Incorporación inmediata</p>
+        <h1>Hola, soy <span class="grad">David Hernáez</span>.</h1>
+        <p class="hero-role">Desarrollador de software junior.</p>
+        <p class="hero-bio">
+          Programo en <strong>Java</strong>, <strong>Python</strong> y <strong>JavaScript</strong> y estudio
+          Desarrollo de Aplicaciones Multiplataforma en Zaragoza. Me gusta entender cómo funcionan las cosas y
+          construir herramientas que resuelvan problemas reales. Aprendo rápido, me adapto y tengo muchas ganas
+          de crecer dentro de un equipo de desarrollo.
+        </p>
+        <div class="cta">
+          <a class="btn btn-primary" href="#proyectos">Ver proyectos</a>
+          <a class="btn btn-ghost" href="#contacto">Contactar</a>
+          <a class="btn btn-ghost" href="https://github.com/DAN12590" target="_blank" rel="noopener">
+            <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-github"/></svg>@DAN12590
+          </a>
+        </div>
+      </div>
+
+      <div class="terminal" aria-label="Perfil en formato terminal">
+        <div class="term-bar">
+          <span class="tb r"></span><span class="tb y"></span><span class="tb g"></span>
+          <span class="term-title">david@zaragoza: ~</span>
+        </div>
+        <pre class="term-body"><code id="term"><span class="p">$</span> cat perfil.json
+{
+  <span class="k">"nombre"</span>: <span class="s">"David Hernáez Castejón"</span>,
+  <span class="k">"rol"</span>: <span class="s">"Desarrollador Junior"</span>,
+  <span class="k">"ubicacion"</span>: <span class="s">"Zaragoza, España"</span>,
+  <span class="k">"stack"</span>: [<span class="s">"Java"</span>, <span class="s">"Python"</span>, <span class="s">"JavaScript"</span>, <span class="s">"React"</span>],
+  <span class="k">"aprendiendo"</span>: [<span class="s">"APIs REST"</span>, <span class="s">"AWS"</span>, <span class="s">"SQL"</span>],
+  <span class="k">"disponible"</span>: <span class="b">true</span>
+}
+<span class="p">$</span> <span class="cursor">▋</span></code></pre>
+      </div>
+    </section>
+
+    <!-- ============ SOBRE MÍ ============ -->
+    <section id="sobre-mi" class="section wrap reveal">
+      <h2 class="sec-title"><span class="num">01.</span> Sobre mí</h2>
+      <div class="about">
+        <div class="about-text">
+          <p>
+            Empecé en la informática por el lado del <strong>hardware y los sistemas</strong>: soy Técnico en
+            Sistemas Microinformáticos y Redes y he hecho prácticas resolviendo incidencias reales de usuarios.
+            Ahí descubrí que lo que más me gusta es <strong>programar</strong>, así que ahora estudio el Grado
+            Superior de DAM en Centro San Valero.
+          </p>
+          <p>
+            Buena parte de lo que sé lo he aprendido <strong>por mi cuenta</strong>, construyendo proyectos:
+            Java, Git, SQL o React. Cuando algo no lo sé, lo investigo hasta que funciona. Busco mi primera
+            oportunidad en una empresa donde pueda aportar desde el primer día y seguir aprendiendo de gente
+            con más experiencia.
+          </p>
+        </div>
+        <ul class="traits">
+          <li>
+            <span class="t-ico">⚡</span>
+            <div><b>Aprendo rápido</b><span>Autodidacta: aprendo herramientas nuevas aplicándolas en proyectos reales.</span></div>
+          </li>
+          <li>
+            <span class="t-ico">🔄</span>
+            <div><b>Me adapto</b><span>Del soporte técnico presencial al desarrollo en equipo, me ajusto a lo que pide cada puesto.</span></div>
+          </li>
+          <li>
+            <span class="t-ico">🧩</span>
+            <div><b>Resuelvo problemas</b><span>Analizo antes de actuar, tanto con código como con incidencias de usuarios.</span></div>
+          </li>
+          <li>
+            <span class="t-ico">🤝</span>
+            <div><b>Trabajo en equipo</b><span>Comunico con claridad y mantengo la calma cuando hay presión.</span></div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ PROYECTOS ============ -->
+    <section id="proyectos" class="section wrap reveal">
+      <h2 class="sec-title"><span class="num">02.</span> Proyectos</h2>
+      <p class="sec-sub">Proyectos propios y prácticas donde aplico lo que voy aprendiendo. Todo el código está en GitHub.</p>
+
+      <article class="project featured">
+        <div class="pf-info">
+          <span class="kicker">Proyecto destacado · Web app</span>
+          <h3>PDF Photo Viewer</h3>
+          <p>
+            Si tienes 20 PDFs con una foto en cada uno, abrirlos uno a uno es lento. Esta aplicación los carga
+            todos a la vez (archivos sueltos o una carpeta entera) y muestra la <strong>primera página de cada
+            PDF como miniatura</strong> en una cuadrícula, con un visor a pantalla completa para verlos en detalle.
+          </p>
+          <ul class="checks">
+            <li>Arquitectura por componentes en <strong>React 19</strong>: subida, cuadrícula, miniatura y visor modal.</li>
+            <li>Renderizado de PDF en el navegador con <strong>react-pdf / pdf.js</strong>, sin subir nada a un servidor.</li>
+            <li><strong>ErrorBoundary</strong> para que un archivo dañado no rompa la aplicación.</li>
+          </ul>
+          <div class="tags"><span>React 19</span><span>Vite</span><span>react-pdf</span><span>JavaScript</span><span>CSS</span></div>
+          <div class="links">
+            <a class="btn btn-primary btn-sm" href="demos/pdf-viewer/" target="_blank" rel="noopener">Probar demo ↗</a>
+            <a class="btn btn-ghost btn-sm" href="https://github.com/DAN12590/PDF-photo-viewer" target="_blank" rel="noopener">
+              <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-github"/></svg>Código
+            </a>
+          </div>
+        </div>
+        <div class="pf-visual" aria-hidden="true">
+          <div class="mock">
+            <div class="mock-bar"><span></span><span></span><span></span></div>
+            <div class="mock-grid">
+              <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <div class="grid-projects">
+        <article class="project card">
+          <div class="card-top">
+            <span class="lang-dot js"></span><span class="lang-name">JavaScript</span>
+          </div>
+          <h3>Warframe Primes Tracker</h3>
+          <p>Web para llevar el control de qué objetos y componentes de una colección tienes ya. Pestañas, búsqueda en tiempo real y filtros por estado y categoría. El progreso se guarda en el navegador.</p>
+          <div class="tags"><span>JavaScript</span><span>HTML5</span><span>CSS3</span><span>localStorage</span></div>
+          <div class="links">
+            <a href="demos/warframe-tracker/" target="_blank" rel="noopener">Demo ↗</a>
+            <a href="https://github.com/DAN12590/Warframe-Primes-checker" target="_blank" rel="noopener">Código ↗</a>
+          </div>
+        </article>
+
+        <article class="project card">
+          <div class="card-top">
+            <span class="lang-dot java"></span><span class="lang-name">Java</span>
+          </div>
+          <h3>Simulación bancaria</h3>
+          <p>Sistema de cuentas corriente y de ahorro que heredan de una clase base: ingresos, retiradas, intereses e historial de movimientos, con validaciones de saldo e importes.</p>
+          <div class="tags"><span>Java</span><span>POO</span><span>Herencia</span><span>ArrayList</span></div>
+          <div class="links">
+            <a href="https://github.com/DAN12590/Java-practicas/tree/main/src/ProyectoBanco" target="_blank" rel="noopener">Código ↗</a>
+          </div>
+        </article>
+
+        <article class="project card">
+          <div class="card-top">
+            <span class="lang-dot py"></span><span class="lang-name">Python</span>
+          </div>
+          <h3>RPG de combate por rondas</h3>
+          <p>Juego de consola por turnos con jerarquía de clases (Guerrero, Mago, Darkin y Enemigo), polimorfismo, sistema de maná y curación, y progresión por rondas.</p>
+          <div class="tags"><span>Python</span><span>POO</span><span>Polimorfismo</span></div>
+          <div class="links">
+            <a href="https://github.com/DAN12590/Python-1/tree/main/Taller2" target="_blank" rel="noopener">Código ↗</a>
+          </div>
+        </article>
+
+        <article class="project card">
+          <div class="card-top">
+            <span class="lang-dot java"></span><span class="lang-name">Java</span>
+          </div>
+          <h3>20+ prácticas de Java</h3>
+          <p>Mi recorrido aprendiendo Java, documentado ejercicio a ejercicio: colecciones (ArrayList, HashMap), herencia, getters/setters, excepciones, lectura y escritura de ficheros, matrices y algoritmia.</p>
+          <div class="tags"><span>Java</span><span>Colecciones</span><span>Ficheros</span><span>Excepciones</span></div>
+          <div class="links">
+            <a href="https://github.com/DAN12590/Java-practicas" target="_blank" rel="noopener">Código ↗</a>
+          </div>
+        </article>
+
+        <article class="project card">
+          <div class="card-top">
+            <span class="lang-dot py"></span><span class="lang-name">Python</span>
+          </div>
+          <h3>Datos con Python</h3>
+          <p>Búsquedas y filtros sobre un CSV de 800 registros con <code>csv.DictReader</code>, análisis de texto sobre <em>El Quijote</em>, manejo de excepciones y módulos propios.</p>
+          <div class="tags"><span>Python</span><span>CSV</span><span>Ficheros</span><span>Módulos</span></div>
+          <div class="links">
+            <a href="https://github.com/DAN12590/Python-1" target="_blank" rel="noopener">Código ↗</a>
+          </div>
+        </article>
+
+        <article class="project card">
+          <div class="card-top">
+            <span class="lang-dot java"></span><span class="lang-name">Java</span>
+          </div>
+          <h3>Juegos sobre tablero</h3>
+          <p>Retos de clase sobre matrices 10×10: generación aleatoria de obstáculos, movimiento del jugador con WASD y detección de casillas, resueltos con funciones reutilizables.</p>
+          <div class="tags"><span>Java</span><span>Matrices</span><span>Algoritmia</span></div>
+          <div class="links">
+            <a href="https://github.com/DAN12590/java-mision-03-rescate-David-Hernaez" target="_blank" rel="noopener">Código ↗</a>
+          </div>
+        </article>
+      </div>
+
+      <!-- Repos cargados en vivo desde la API de GitHub -->
+      <div class="live">
+        <div class="live-head">
+          <h3><span class="dot"></span>Actividad reciente en GitHub</h3>
+          <a href="https://github.com/DAN12590?tab=repositories" target="_blank" rel="noopener">Ver todos ↗</a>
+        </div>
+        <ul id="repo-list" class="repo-list" aria-live="polite">
+          <li class="repo skeleton"></li><li class="repo skeleton"></li><li class="repo skeleton"></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ STACK ============ -->
+    <section id="stack" class="section wrap reveal">
+      <h2 class="sec-title"><span class="num">03.</span> Stack técnico</h2>
+      <p class="sec-sub">Lo que uso en mis proyectos y lo que estoy aprendiendo ahora mismo.</p>
+      <div class="stack-grid">
+        <div class="stack-card">
+          <h3>Lenguajes</h3>
+          <div class="chips"><span class="main">Java</span><span class="main">Python</span><span class="main">JavaScript</span><span>SQL</span><span>HTML5</span><span>CSS3</span></div>
+        </div>
+        <div class="stack-card">
+          <h3>Frontend</h3>
+          <div class="chips"><span class="main">React</span><span>Vite</span><span>DOM</span><span>Responsive</span><span>WordPress</span></div>
+        </div>
+        <div class="stack-card">
+          <h3>Herramientas</h3>
+          <div class="chips"><span class="main">Git</span><span>GitHub</span><span>GitHub Pages</span><span>IntelliJ IDEA</span><span>VS Code</span><span>npm</span></div>
+        </div>
+        <div class="stack-card">
+          <h3>Sistemas</h3>
+          <div class="chips"><span>Windows</span><span>Linux</span><span>Redes</span><span>Hardware</span><span>Soporte TI</span></div>
+        </div>
+        <div class="stack-card">
+          <h3>Fundamentos</h3>
+          <div class="chips"><span>POO</span><span>Estructuras de datos</span><span>Excepciones</span><span>Ficheros</span><span>JSON · CSV</span><span>Algoritmia</span></div>
+        </div>
+        <div class="stack-card learning">
+          <h3>Aprendiendo ahora</h3>
+          <div class="chips"><span>APIs REST</span><span>AWS Cloud</span><span>Bases de datos SQL</span></div>
+          <p class="learning-note">Conozco los conceptos (HTTP, JSON, servicios cloud) y mi siguiente paso es aplicarlos en un proyecto propio.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ TRAYECTORIA ============ -->
+    <section id="trayectoria" class="section wrap reveal">
+      <h2 class="sec-title"><span class="num">04.</span> Trayectoria</h2>
+      <ol class="timeline">
+        <li class="now">
+          <span class="when">2026 — 2028</span>
+          <div>
+            <h3>CFGS Desarrollo de Aplicaciones Multiplataforma <span class="pill">En curso</span></h3>
+            <p class="org">Centro San Valero</p>
+          </div>
+        </li>
+        <li>
+          <span class="when">Mar — May 2026</span>
+          <div>
+            <h3>Prácticas · Técnico de mantenimiento informático</h3>
+            <p class="org">Flamenyco · El Rincón &amp; Martín Martín</p>
+            <p>Diagnóstico y resolución de incidencias de hardware y software, mantenimiento preventivo y correctivo de equipos y atención a usuarios no técnicos en momentos de mucha carga.</p>
+          </div>
+        </li>
+        <li>
+          <span class="when">Jun 2025</span>
+          <div>
+            <h3>Desarrollo web en equipo</h3>
+            <p class="org">Alpha Group</p>
+            <p>Diseño y desarrollo en equipo de la web corporativa con HTML, CSS y JavaScript como parte de la digitalización de la empresa.</p>
+          </div>
+        </li>
+        <li>
+          <span class="when">2024 — 2026</span>
+          <div>
+            <h3>CFGM Sistemas Microinformáticos y Redes</h3>
+            <p class="org">Colegio Montessori</p>
+          </div>
+        </li>
+      </ol>
+      <p class="langs"><b>Idiomas:</b> Español (nativo) · Inglés (B2)</p>
+    </section>
+
+    <!-- ============ CONTACTO ============ -->
+    <section id="contacto" class="section wrap contact reveal">
+      <p class="num">05. ¿Hablamos?</p>
+      <h2>Busco mi primera oportunidad como desarrollador</h2>
+      <p>
+        Estoy disponible para <strong>incorporarme de inmediato</strong>. Si mi perfil encaja en tu equipo o
+        quieres comentar alguno de mis proyectos, escríbeme y te respondo lo antes posible.
+      </p>
+      <div class="contact-actions">
+        <a class="btn btn-primary" href="mailto:davidhernaez08@gmail.com">
+          <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-mail"/></svg>Enviar email
+        </a>
+        <button class="btn btn-ghost mono" id="copy-email" type="button" data-email="davidhernaez08@gmail.com">
+          <span>davidhernaez08@gmail.com</span><small>copiar</small>
+        </button>
+        <a class="btn btn-ghost" href="https://github.com/DAN12590" target="_blank" rel="noopener">
+          <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-github"/></svg>GitHub
+        </a>
+      </div>
+      <p class="loc">📍 Zaragoza, España</p>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">
+      <span>© <span id="year">2026</span> David Hernáez Castejón</span>
+      <span class="mono">HTML · CSS · JavaScript · GitHub Pages</span>
+    </div>
+  </footer>
+
+  <!-- Iconos SVG reutilizables -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="i-github" viewBox="0 0 24 24"><path fill="currentColor" d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.2.5-2.3 1.3-3.1-.2-.4-.6-1.6.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.6.2 2.8.1 3.2.8.8 1.3 1.9 1.3 3.2 0 4.6-2.8 5.6-5.5 5.9.5.4.9 1.1.9 2.2v3.3c0 .3.1.7.8.6A12 12 0 0 0 12 .3"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><path fill="currentColor" d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4-8 5-8-5V6l8 5 8-5z"/></symbol>
+  </svg>
+
+  <script src="script.js" defer></script>
 </body>
 </html>
