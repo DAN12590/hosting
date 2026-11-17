@@ -39,9 +39,14 @@
         <a class="menu-link" href="#proyectos">Proyectos</a>
         <a class="menu-link" href="#stack">Stack</a>
         <a class="menu-link" href="#trayectoria">Trayectoria</a>
+        <a class="menu-link" href="#fuera-del-codigo">Fuera del código</a>
         <a class="menu-link" href="#contacto">Contacto</a>
-        <a class="btn btn-ghost btn-sm" href="https://github.com/DAN12590" target="_blank" rel="noopener">
-          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-github"/></svg>GitHub
+        <!-- En escritorio solo se ve el icono; en el menú desplegable también el texto -->
+        <a class="btn btn-ghost btn-sm nav-social" href="https://github.com/DAN12590" target="_blank" rel="noopener" aria-label="GitHub" title="GitHub">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-github"/></svg><span class="nav-social-label">GitHub</span>
+        </a>
+        <a class="btn btn-ghost btn-sm nav-social" href="https://www.linkedin.com/in/david-hernaez/" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-linkedin"/></svg><span class="nav-social-label">LinkedIn</span>
         </a>
       </nav>
     </div>
@@ -63,8 +68,12 @@
         <div class="hero-actions">
           <a class="btn btn-primary" href="#proyectos">Ver proyectos</a>
           <a class="btn btn-ghost" href="#contacto">Contactar</a>
-          <a class="btn btn-ghost" href="https://github.com/DAN12590" target="_blank" rel="noopener">
-            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-github"/></svg>@DAN12590
+          <!-- Solo icono para que quepan los 4 botones en una fila; el aria-label es lo que lee un lector de pantalla -->
+          <a class="btn btn-ghost btn-icon" href="https://github.com/DAN12590" target="_blank" rel="noopener" aria-label="GitHub" title="GitHub">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-github"/></svg>
+          </a>
+          <a class="btn btn-ghost btn-icon" href="https://www.linkedin.com/in/david-hernaez/" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-linkedin"/></svg>
           </a>
         </div>
       </div>
@@ -106,6 +115,9 @@
             Java, Git, SQL o React. Cuando algo no lo sé, lo investigo hasta que funciona. Busco mi primera
             oportunidad en una empresa donde pueda aportar desde el primer día y seguir aprendiendo de gente
             con más experiencia.
+          </p>
+          <p class="about-more">
+            Y fuera del código: gatos, gimnasio y bastante competitividad. <a href="#fuera-del-codigo">Te lo enseño más abajo ↓</a>
           </p>
         </div>
         <ul class="traits">
@@ -331,68 +343,16 @@
     <!-- Fuera del código -->
     <section id="fuera-del-codigo" class="section wrap reveal">
       <h2 class="section-title"><span class="section-num">05.</span> Fuera del código</h2>
-      <p class="section-subtitle">Lo que no sale en el CV, pero también dice cómo soy.</p>
-
-      <!-- Bloque de la gata: collage a la izquierda, texto a la derecha -->
-      <article class="hobby">
-        <div class="hobby-media cat-collage">
-          <figure class="cat-main">
-            <img src="img/gata.webp" alt="Mi gata tricolor mirando a cámara en el sofá" width="600" height="800" loading="lazy">
-            <figcaption>La jefa</figcaption>
-          </figure>
-          <figure class="cat-castanas">
-            <img src="img/gata-castanas.webp" alt="Mi gata tumbada en el suelo junto a una bolsa de castañas rota" width="600" height="800" loading="lazy">
-            <figcaption>El incidente de las castañas</figcaption>
-          </figure>
-          <figure class="cat-street">
-            <img src="img/gato-calle.webp" alt="Un gato atigrado de la calle dejándose acariciar" width="600" height="800" loading="lazy">
-            <figcaption>Un amigo de la calle</figcaption>
-          </figure>
-        </div>
-
-        <div class="hobby-text">
-          <span class="kicker">// en casa</span>
-          <h3>Mi gata</h3>
+      <a class="teaser" href="fuera-del-codigo.html">
+        <img src="img/gata.webp" alt="Mi gata tricolor en el sofá" width="600" height="800" loading="lazy">
+        <div>
           <p>
-            Vivo con una gata tricolor que tiene muy claro quién manda en casa. La foto del suelo es de justo
-            después de reventar una bolsa de castañas: ni un gramo de arrepentimiento.
+            Vivo con una gata tricolor que manda en casa, llevo 3 años entrenando duro en el gimnasio y soy
+            muy competitivo: cuando algo sale mal, busco en qué he fallado y lo vuelvo a intentar.
           </p>
-          <p>
-            Y no es solo ella: si me cruzo con un gato por la calle, me paro a saludarlo. El de la foto era de
-            los majos.
-          </p>
-          <pre class="mini-json"><code><span class="tok-prompt">$</span> cat gata.json
-{
-  <span class="tok-key">"rol"</span>: <span class="tok-string">"jefa de la casa"</span>,
-  <span class="tok-key">"antecedentes"</span>: [<span class="tok-string">"bolsa de castañas"</span>],
-  <span class="tok-key">"arrepentimiento"</span>: <span class="tok-bool">null</span>
-}</code></pre>
+          <span class="teaser-link">Conóceme un poco más →</span>
         </div>
-      </article>
-
-      <!-- Bloque del LoL: al revés, texto a la izquierda e imagen a la derecha -->
-      <article class="hobby hobby-reverse">
-        <div class="hobby-text">
-          <span class="kicker">// League of Legends</span>
-          <h3>Master en Solo/Dúo</h3>
-          <p>
-            Soy competitivo y me gusta mejorar en lo que hago. En el LoL llegué a Master, y por el camino
-            aprendí cosas que también me sirven programando:
-          </p>
-          <ul class="checks">
-            <li><strong>Aprender de mis errores.</strong> Cuando pierdo, busco qué hice mal y lo cambio en la siguiente. Con un bug hago lo mismo.</li>
-            <li><strong>Ser competitivo.</strong> Me pongo un objetivo y no paro hasta conseguirlo.</li>
-            <li><strong>Paciencia de acero.</strong> Entre las ranked y mi etapa en soporte IT, ya pocas cosas me hacen perder los nervios.</li>
-          </ul>
-          <p class="hobby-note">
-            Si has visto la clase Darkin en mi RPG de Python, ya sabes de dónde salió la idea.
-          </p>
-        </div>
-
-        <div class="hobby-media">
-          <img class="rank-shot" src="img/lol-master.webp" alt="Pantalla de League of Legends: Has ascendido a Maestro en clasificatorias de Solo/Dúo" width="600" height="450" loading="lazy">
-        </div>
-      </article>
+      </a>
     </section>
 
     <!-- Contacto -->
@@ -414,6 +374,9 @@
         <a class="btn btn-ghost" href="https://github.com/DAN12590" target="_blank" rel="noopener">
           <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-github"/></svg>GitHub
         </a>
+        <a class="btn btn-ghost" href="https://www.linkedin.com/in/david-hernaez/" target="_blank" rel="noopener">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-linkedin"/></svg>LinkedIn
+        </a>
       </div>
       <p class="contact-location">📍 Zaragoza, España</p>
     </section>
@@ -429,6 +392,7 @@
   <!-- Iconos, se reutilizan con <use href="#icon-..."> -->
   <svg class="svg-sprite" aria-hidden="true">
     <symbol id="icon-github" viewBox="0 0 24 24"><path fill="currentColor" d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.2.5-2.3 1.3-3.1-.2-.4-.6-1.6.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.6.2 2.8.1 3.2.8.8 1.3 1.9 1.3 3.2 0 4.6-2.8 5.6-5.5 5.9.5.4.9 1.1.9 2.2v3.3c0 .3.1.7.8.6A12 12 0 0 0 12 .3"/></symbol>
+    <symbol id="icon-linkedin" viewBox="0 0 24 24"><path fill="currentColor" d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></symbol>
     <symbol id="icon-mail" viewBox="0 0 24 24"><path fill="currentColor" d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4-8 5-8-5V6l8 5 8-5z"/></symbol>
   </svg>
 
