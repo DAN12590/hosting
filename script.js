@@ -1,167 +1,273 @@
-// Portfolio · David Hernáez Castejón
+// Todo va dentro de una función que se ejecuta sola para no dejar variables globales.
+// El script se carga con defer, así que el HTML ya está listo cuando llega aquí.
 (function () {
   'use strict';
 
   const GITHUB_USER = 'DAN12590';
+  const GITHUB_API_URL = `https://api.github.com/users/${GITHUB_USER}/repos?sort=pushed&per_page=30`;
+  const MAX_REPOS_SHOWN = 6;
+  const FETCH_TIMEOUT_MS = 6000;
+  const COPY_FEEDBACK_MS = 2200;
+
+  // El repo del README del perfil y el de esta web no tiene sentido enseñarlos
   const HIDDEN_REPOS = ['DAN12590', 'hosting'];
-  const LANG_CLASS = { Java: 'java', Python: 'py', JavaScript: 'js', HTML: 'html' };
 
-  // Repos que se muestran si la API de GitHub no responde (sin conexión o límite de peticiones)
-  const FALLBACK_REPOS = [
-    { name: 'Tablero_Clases', language: 'Java', description: 'Tablero 10×10 con movimiento del jugador y funciones reutilizables.', html_url: 'https://github.com/DAN12590/Tablero_Clases' },
-    { name: 'Cleopatra-num-mas-cercano-', language: 'Java', description: 'Reto de algoritmia: cálculo de distancias entre años a. C. y d. C.', html_url: 'https://github.com/DAN12590/Cleopatra-num-mas-cercano-' },
-    { name: 'Java-practicas', language: 'Java', description: 'Prácticas que fui haciendo cuando estuve empezando a aprender Java.', html_url: 'https://github.com/DAN12590/Java-practicas' },
-    { name: 'GS', language: 'Java', description: 'Retos y ejercicios de clase: sopa de letras, tesoro, hackatón.', html_url: 'https://github.com/DAN12590/GS' },
-    { name: 'PDF-photo-viewer', language: 'JavaScript', description: 'Visor de PDFs en cuadrícula con React.', html_url: 'https://github.com/DAN12590/PDF-photo-viewer' },
-    { name: 'Python-1', language: 'Python', description: 'Prácticas, trabajos y exámenes de Python a lo largo del año.', html_url: 'https://github.com/DAN12590/Python-1' }
-  ];
+  const LANGUAGE_CSS_CLASS = { Java: 'java', Python: 'py', JavaScript: 'js', HTML: 'html' };
 
-  // Descripciones en español para repos que no tienen descripción en GitHub
-  const DESCRIPTIONS = {};
-  FALLBACK_REPOS.forEach((r) => { DESCRIPTIONS[r.name] = r.description; });
-  Object.assign(DESCRIPTIONS, {
+  // GitHub detecta los .psc de PSeInt como "Papyrus"
+  const LANGUAGE_OVERRIDES = { PSeInt: 'PSeInt' };
+
+  // Para los repos que no tienen descripción en GitHub
+  const REPO_DESCRIPTIONS = {
+    'Tablero_Clases': 'Tablero 10×10 con movimiento del jugador y funciones reutilizables.',
+    'Cleopatra-num-mas-cercano-': 'Reto de algoritmia: cálculo de distancias entre años a. C. y d. C.',
+    'Java-practicas': 'Prácticas que fui haciendo cuando estuve empezando a aprender Java.',
+    'GS': 'Retos y ejercicios de clase: sopa de letras, tesoro, hackatón.',
+    'PDF-photo-viewer': 'Visor de PDFs en cuadrícula con React.',
+    'Python-1': 'Prácticas, trabajos y exámenes de Python a lo largo del año.',
     'java-mision-03-rescate-David-Hernaez': 'Misión de rescate en un tablero 10×10 con obstáculos aleatorios y movimiento WASD.',
     'PSeInt': 'Primeros algoritmos en pseudocódigo con PSeInt.',
     'Warframe-Primes-checker': 'Tracker de colección con búsqueda, filtros y guardado en el navegador.'
-  });
-  // GitHub detecta mal algunos lenguajes (los .psc de PSeInt salen como "Papyrus")
-  const LANG_OVERRIDE = { PSeInt: 'PSeInt' };
+  };
 
-  document.documentElement.classList.remove('no-js');
+  const DEFAULT_DESCRIPTION = 'Ejercicios y prácticas de programación.';
 
-  // ---------- Año del footer ----------
-  const year = document.getElementById('year');
-  if (year) year.textContent = new Date().getFullYear();
+  // Si la API falla (sin conexión o límite de 60 peticiones/hora) se enseñan estos.
+  // Tienen el mismo formato que devuelve toRepoCard().
+  const FALLBACK_REPOS = [
+    { name: 'Tablero_Clases', language: 'Java' },
+    { name: 'Cleopatra-num-mas-cercano-', language: 'Java' },
+    { name: 'Java-practicas', language: 'Java' },
+    { name: 'GS', language: 'Java' },
+    { name: 'PDF-photo-viewer', language: 'JavaScript' },
+    { name: 'Python-1', language: 'Python' }
+  ].map((repo) => ({
+    ...repo,
+    description: REPO_DESCRIPTIONS[repo.name],
+    url: `https://github.com/${GITHUB_USER}/${repo.name}`,
+    updatedAt: null
+  }));
 
-  // ---------- Menú móvil ----------
-  const menuBtn = document.querySelector('.menu-btn');
-  const menu = document.getElementById('menu');
-  if (menuBtn && menu) {
-    menuBtn.addEventListener('click', () => {
-      const open = menu.classList.toggle('open');
-      menuBtn.setAttribute('aria-expanded', String(open));
-    });
-    menu.querySelectorAll('a').forEach((a) =>
-      a.addEventListener('click', () => {
-        menu.classList.remove('open');
-        menuBtn.setAttribute('aria-expanded', 'false');
-      })
-    );
+
+  function showCurrentYear() {
+    const yearElement = document.getElementById('year');
+    if (yearElement) {
+      yearElement.textContent = new Date().getFullYear();
+    }
   }
 
-  // ---------- Animación al hacer scroll + enlace activo ----------
-  const reveals = document.querySelectorAll('.reveal');
-  if ('IntersectionObserver' in window) {
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach((e) => {
-        if (e.isIntersecting) {
-          e.target.classList.add('visible');
-          io.unobserve(e.target);
+  function setupMobileMenu() {
+    const menuButton = document.querySelector('.menu-btn');
+    const menu = document.getElementById('menu');
+    if (!menuButton || !menu) return;
+
+    // aria-expanded es para lectores de pantalla, y el CSS lo usa para pintar la X
+    function setMenuOpen(isOpen) {
+      menu.classList.toggle('open', isOpen);
+      menuButton.setAttribute('aria-expanded', String(isOpen));
+    }
+
+    menuButton.addEventListener('click', () => {
+      setMenuOpen(!menu.classList.contains('open'));
+    });
+
+    menu.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => setMenuOpen(false));
+    });
+  }
+
+  // Añade .visible a cada sección cuando aparece en pantalla y el CSS hace la animación.
+  // Con IntersectionObserver no hace falta escuchar el scroll todo el rato.
+  function setupScrollReveal() {
+    const sections = document.querySelectorAll('.reveal');
+
+    if (!('IntersectionObserver' in window)) {
+      sections.forEach((section) => section.classList.add('visible'));
+      return;
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target); // solo se anima la primera vez
         }
       });
     }, { threshold: 0.08 });
-    reveals.forEach((el) => io.observe(el));
 
-    const navLinks = document.querySelectorAll('.menu > a[href^="#"]');
-    const spy = new IntersectionObserver((entries) => {
-      entries.forEach((e) => {
-        if (!e.isIntersecting) return;
-        navLinks.forEach((a) => a.classList.toggle('active', a.getAttribute('href') === '#' + e.target.id));
-      });
-    }, { rootMargin: '-45% 0px -50% 0px' });
-    document.querySelectorAll('main section[id]').forEach((s) => spy.observe(s));
-  } else {
-    reveals.forEach((el) => el.classList.add('visible'));
+    sections.forEach((section) => observer.observe(section));
   }
 
-  // ---------- Copiar email ----------
-  const copyBtn = document.getElementById('copy-email');
-  if (copyBtn) {
-    const label = copyBtn.querySelector('small');
-    copyBtn.addEventListener('click', async () => {
-      const email = copyBtn.dataset.email;
-      try {
-        await navigator.clipboard.writeText(email);
-      } catch (err) {
-        const tmp = document.createElement('textarea');
-        tmp.value = email;
-        document.body.appendChild(tmp);
-        tmp.select();
-        document.execCommand('copy');
-        tmp.remove();
-      }
-      copyBtn.classList.add('copied');
-      label.textContent = '¡copiado!';
+  // Marca en el menú la sección que se está viendo. El rootMargin deja solo una
+  // franja en el centro de la pantalla, así no hay dos secciones activas a la vez.
+  function setupActiveNavLink() {
+    if (!('IntersectionObserver' in window)) return;
+
+    const navLinks = document.querySelectorAll('.menu-link');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+
+        const activeHref = '#' + entry.target.id;
+        navLinks.forEach((link) => {
+          link.classList.toggle('active', link.getAttribute('href') === activeHref);
+        });
+      });
+    }, { rootMargin: '-45% 0px -50% 0px' });
+
+    document.querySelectorAll('main section[id]').forEach((section) => observer.observe(section));
+  }
+
+  // navigator.clipboard solo funciona en https, si falla tiro del método antiguo
+  async function copyToClipboard(text) {
+    try {
+      await navigator.clipboard.writeText(text);
+    } catch {
+      const textarea = document.createElement('textarea');
+      textarea.value = text;
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand('copy');
+      textarea.remove();
+    }
+  }
+
+  function setupCopyEmail() {
+    const button = document.getElementById('copy-email');
+    if (!button) return;
+
+    const hint = button.querySelector('.copy-email-hint');
+
+    button.addEventListener('click', async () => {
+      await copyToClipboard(button.dataset.email);
+
+      button.classList.add('copied');
+      hint.textContent = '¡copiado!';
+
       setTimeout(() => {
-        copyBtn.classList.remove('copied');
-        label.textContent = 'copiar';
-      }, 2200);
+        button.classList.remove('copied');
+        hint.textContent = 'copiar';
+      }, COPY_FEEDBACK_MS);
     });
   }
 
-  // ---------- Repos en vivo desde la API de GitHub ----------
-  const list = document.getElementById('repo-list');
+  // "actualizado hace 3 días", "hace 2 meses"...
+  function formatLastUpdate(isoDate) {
+    const MS_PER_DAY = 24 * 60 * 60 * 1000;
+    const days = Math.floor((Date.now() - new Date(isoDate).getTime()) / MS_PER_DAY);
 
-  function timeAgo(iso) {
-    if (!iso) return '';
-    const days = Math.floor((Date.now() - new Date(iso).getTime()) / 86400000);
     if (days < 1) return 'actualizado hoy';
     if (days === 1) return 'actualizado ayer';
     if (days < 30) return `actualizado hace ${days} días`;
+
     const months = Math.floor(days / 30);
     if (months < 12) return `actualizado hace ${months} ${months === 1 ? 'mes' : 'meses'}`;
+
     const years = Math.floor(months / 12);
     return `actualizado hace ${years} ${years === 1 ? 'año' : 'años'}`;
   }
 
-  function renderRepos(repos) {
-    list.innerHTML = '';
-    repos.slice(0, 6).forEach((r) => {
-      const li = document.createElement('li');
-      li.className = 'repo';
-      const a = document.createElement('a');
-      a.href = r.html_url;
-      a.target = '_blank';
-      a.rel = 'noopener';
+  // De todo lo que devuelve la API me quedo solo con lo que uso
+  function toRepoCard(apiRepo) {
+    return {
+      name: apiRepo.name,
+      description: apiRepo.description || REPO_DESCRIPTIONS[apiRepo.name],
+      language: LANGUAGE_OVERRIDES[apiRepo.name] || apiRepo.language,
+      url: apiRepo.html_url,
+      updatedAt: apiRepo.pushed_at
+    };
+  }
 
-      const name = document.createElement('div');
-      name.className = 'r-name';
-      name.textContent = r.name;
+  async function fetchRecentRepos() {
+    // Si GitHub tarda demasiado se cancela la petición y salta al catch
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
 
-      const desc = document.createElement('div');
-      desc.className = 'r-desc';
-      desc.textContent = r.description || DESCRIPTIONS[r.name] || 'Ejercicios y prácticas de programación.';
-
-      const meta = document.createElement('div');
-      meta.className = 'r-meta';
-      const dot = document.createElement('span');
-      const language = LANG_OVERRIDE[r.name] || r.language;
-      dot.className = 'lang-dot ' + (LANG_CLASS[language] || 'other');
-      const lang = document.createElement('span');
-      lang.textContent = language || '—';
-      meta.append(dot, lang);
-      if (r.pushed_at) {
-        const sep = document.createElement('span');
-        sep.textContent = '· ' + timeAgo(r.pushed_at);
-        meta.append(sep);
+    try {
+      const response = await fetch(GITHUB_API_URL, { signal: controller.signal });
+      if (!response.ok) {
+        throw new Error(`GitHub respondió con el estado ${response.status}`);
       }
 
-      a.append(name, desc, meta);
-      li.append(a);
-      list.append(li);
-    });
+      const repos = await response.json();
+      return repos
+        .filter((repo) => !repo.fork && !HIDDEN_REPOS.includes(repo.name))
+        .map(toRepoCard);
+    } finally {
+      clearTimeout(timeoutId);
+    }
   }
 
-  if (list) {
-    const ctrl = new AbortController();
-    const timer = setTimeout(() => ctrl.abort(), 6000);
-    fetch(`https://api.github.com/users/${GITHUB_USER}/repos?sort=pushed&per_page=30`, { signal: ctrl.signal })
-      .then((res) => (res.ok ? res.json() : Promise.reject(res.status)))
-      .then((repos) => {
-        const visible = repos.filter((r) => !r.fork && !HIDDEN_REPOS.includes(r.name));
-        renderRepos(visible.length ? visible : FALLBACK_REPOS);
-      })
-      .catch(() => renderRepos(FALLBACK_REPOS))
-      .finally(() => clearTimeout(timer));
+  // Uso textContent en vez de innerHTML porque los datos vienen de fuera
+  // y así no se puede colar HTML en la página
+  function createRepoItem(repo) {
+    const name = document.createElement('div');
+    name.className = 'repo-name';
+    name.textContent = repo.name;
+
+    const description = document.createElement('div');
+    description.className = 'repo-desc';
+    description.textContent = repo.description || DEFAULT_DESCRIPTION;
+
+    const languageDot = document.createElement('span');
+    languageDot.className = 'lang-dot ' + (LANGUAGE_CSS_CLASS[repo.language] || '');
+
+    const languageName = document.createElement('span');
+    languageName.textContent = repo.language || '—';
+
+    const meta = document.createElement('div');
+    meta.className = 'repo-meta';
+    meta.append(languageDot, languageName);
+
+    if (repo.updatedAt) {
+      const lastUpdate = document.createElement('span');
+      lastUpdate.textContent = '· ' + formatLastUpdate(repo.updatedAt);
+      meta.append(lastUpdate);
+    }
+
+    const link = document.createElement('a');
+    link.className = 'repo-link';
+    link.href = repo.url;
+    link.target = '_blank';
+    link.rel = 'noopener';
+    link.append(name, description, meta);
+
+    const item = document.createElement('li');
+    item.append(link);
+    return item;
   }
+
+  async function showGitHubRepos() {
+    const list = document.getElementById('repo-list');
+    if (!list) return;
+
+    let repos = [];
+    try {
+      repos = await fetchRecentRepos();
+    } catch (error) {
+      console.warn('No se pudieron cargar los repos de GitHub', error);
+    }
+
+    if (repos.length === 0) {
+      repos = FALLBACK_REPOS;
+    }
+
+    // Quita los skeleton de carga y mete los repos
+    list.replaceChildren(...repos.slice(0, MAX_REPOS_SHOWN).map(createRepoItem));
+  }
+
+
+  function init() {
+    document.documentElement.classList.remove('no-js');
+
+    showCurrentYear();
+    setupMobileMenu();
+    setupScrollReveal();
+    setupActiveNavLink();
+    setupCopyEmail();
+    showGitHubRepos();
+  }
+
+  init();
 })();
