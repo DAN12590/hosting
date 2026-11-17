@@ -11,6 +11,7 @@ index.html       contenido de la página
 styles.css       estilos (variables en :root, luego cada sección en orden)
 script.js        menú móvil, animaciones al hacer scroll, copiar email y repos de GitHub
 favicon.svg
+img/             fotos de la sección "Fuera del código", en webp para que pesen poco
 demos/
   warframe-tracker/   demo del tracker (JavaScript puro)
   pdf-viewer/         build de Vite del PDF Photo Viewer, el código está en su propio repo
