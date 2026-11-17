@@ -1,8 +1,7 @@
-/* Warframe Prime Tracker - Styles */
-/* Tema oscuro estilo Warframe con acentos dorados */
+/* Warframe Prime Tracker: tema oscuro con dorados, como el juego */
 
 :root {
-  /* Colors */
+  /* Colores */
   --bg-primary: #0a0a0f;
   --bg-secondary: #12121a;
   --bg-tertiary: #1a1a25;
@@ -14,7 +13,6 @@
   --gold-dark: #9a7d00;
   --gold-glow: rgba(196, 160, 0, 0.3);
 
-  --silver: #b0b0b0;
   --silver-dark: #707070;
 
   --text-primary: #f0f0f0;
@@ -29,32 +27,28 @@
   --border-color: rgba(196, 160, 0, 0.2);
   --border-glow: rgba(196, 160, 0, 0.4);
 
-  /* Spacing */
+  /* Espaciados */
   --spacing-xs: 0.25rem;
   --spacing-sm: 0.5rem;
   --spacing-md: 1rem;
   --spacing-lg: 1.5rem;
   --spacing-xl: 2rem;
 
-  /* Border Radius */
+  /* Bordes redondeados */
   --radius-sm: 4px;
   --radius-md: 8px;
   --radius-lg: 12px;
-  --radius-xl: 16px;
 
-  /* Transitions */
+  /* Transiciones */
   --transition-fast: 0.15s ease;
   --transition-normal: 0.3s ease;
-  --transition-slow: 0.5s ease;
 
-  /* Shadows */
-  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+  /* Sombras */
   --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.5);
   --shadow-glow: 0 0 20px var(--gold-glow);
 }
 
-/* Reset & Base */
+/* Base */
 *,
 *::before,
 *::after {
@@ -79,7 +73,13 @@ body {
     radial-gradient(ellipse at bottom, rgba(196, 160, 0, 0.03) 0%, transparent 50%);
 }
 
-/* Header */
+button:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--gold-light);
+  outline-offset: 2px;
+}
+
+/* Cabecera */
 .header {
   background: linear-gradient(180deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
   border-bottom: 1px solid var(--border-color);
@@ -126,7 +126,7 @@ body {
   font-size: 2rem;
 }
 
-/* Search Bar */
+/* Buscador */
 .search-container {
   position: relative;
   flex: 1;
@@ -143,6 +143,7 @@ body {
   color: var(--text-primary);
   font-size: 0.95rem;
   transition: all var(--transition-normal);
+  appearance: none;
 }
 
 .search-input:focus {
@@ -163,7 +164,7 @@ body {
   color: var(--text-muted);
 }
 
-/* Stats Bar */
+/* Estadísticas */
 .stats-bar {
   display: flex;
   gap: var(--spacing-lg);
@@ -187,7 +188,7 @@ body {
   color: var(--text-muted);
 }
 
-/* Navigation Tabs */
+/* Pestañas */
 .nav-tabs {
   display: flex;
   gap: var(--spacing-sm);
@@ -234,7 +235,7 @@ body {
   background: rgba(0, 0, 0, 0.2);
 }
 
-/* Filter Controls */
+/* Filtros */
 .controls {
   max-width: 1600px;
   margin: 0 auto;
@@ -292,21 +293,21 @@ body {
   border-color: var(--gold-primary);
 }
 
-/* Main Content */
+/* Contenido */
 .main-content {
   max-width: 1600px;
   margin: 0 auto;
   padding: 0 var(--spacing-xl) var(--spacing-xl);
 }
 
-/* Items Grid */
+/* Rejilla de tarjetas */
 .items-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: var(--spacing-lg);
 }
 
-/* Item Card */
+/* Tarjeta */
 .item-card {
   background: var(--bg-card);
   border: 1px solid var(--border-color);
@@ -318,6 +319,7 @@ body {
   overflow: hidden;
 }
 
+/* Franja dorada arriba de la tarjeta, sale al pasar el ratón */
 .item-card::before {
   content: '';
   position: absolute;
@@ -350,7 +352,6 @@ body {
   opacity: 1;
 }
 
-/* Card Header */
 .card-header {
   display: flex;
   justify-content: space-between;
@@ -391,7 +392,7 @@ body {
   color: var(--warning);
 }
 
-/* Progress Bar */
+/* Barra de progreso */
 .progress-container {
   margin-bottom: var(--spacing-md);
 }
@@ -429,6 +430,7 @@ body {
   position: relative;
 }
 
+/* Brillo que recorre la barra */
 .progress-fill::after {
   content: '';
   position: absolute;
@@ -454,20 +456,26 @@ body {
   }
 }
 
-/* Components List */
+/* Lista de componentes */
 .components-list {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-xs);
 }
 
+/* Son <button>, así que hay que quitarles el estilo por defecto del navegador */
 .component-item {
   display: flex;
   align-items: center;
   gap: var(--spacing-sm);
+  width: 100%;
   padding: var(--spacing-sm);
   background: var(--bg-primary);
+  border: none;
   border-radius: var(--radius-sm);
+  color: inherit;
+  font: inherit;
+  text-align: left;
   cursor: pointer;
   transition: all var(--transition-fast);
   user-select: none;
@@ -520,7 +528,7 @@ body {
   color: var(--text-primary);
 }
 
-/* Quick Actions */
+/* Botones de cada tarjeta */
 .card-actions {
   display: flex;
   gap: var(--spacing-xs);
@@ -569,11 +577,11 @@ body {
   color: white;
 }
 
-/* Empty State */
+/* Sin resultados */
 .empty-state {
   grid-column: 1 / -1;
   text-align: center;
-  padding: var(--spacing-xl) * 2;
+  padding: calc(var(--spacing-xl) * 2);
   color: var(--text-muted);
 }
 
@@ -592,7 +600,7 @@ body {
   font-size: 0.9rem;
 }
 
-/* Toast Notifications */
+/* Notificaciones */
 .toast-container {
   position: fixed;
   bottom: var(--spacing-xl);
@@ -618,6 +626,11 @@ body {
 
 .toast.success {
   border-color: var(--success);
+}
+
+/* app.js la añade justo antes de quitar la notificación */
+.toast.hiding {
+  animation: slideIn 0.3s ease reverse forwards;
 }
 
 .toast-icon {
@@ -694,7 +707,7 @@ body {
   }
 }
 
-/* Scrollbar */
+/* Barra de scroll (Chrome, Edge, Safari) */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
@@ -713,21 +726,23 @@ body {
   background: var(--gold-dark);
 }
 
-/* Selection */
+/* Selección de texto */
 ::selection {
   background: var(--gold-primary);
   color: var(--bg-primary);
 }
 
-/* Data Controls */
+/* Exportar / importar, pegado a la derecha */
 .data-controls {
   display: flex;
-  gap: 1rem;
-  padding: 0 2rem 1rem;
-  justify-content: flex-end;
+  gap: var(--spacing-md);
+  margin-left: auto;
 }
 
 .action-btn.secondary {
+  flex: none;
+  padding: var(--spacing-sm) var(--spacing-md);
+  white-space: nowrap;
   background: rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.2);
   color: var(--text-primary);
