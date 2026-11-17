@@ -479,6 +479,7 @@ p {
 .photo-placeholder {
   display: block;
   width: 100%;
+  height: auto;
   aspect-ratio: 4 / 5;
   border: 1px solid var(--accent-border);
   border-radius: var(--radius);
