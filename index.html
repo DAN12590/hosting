@@ -19,7 +19,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <!-- El ?v= obliga al navegador a descargar el CSS nuevo en vez de usar el de la caché; hay que cambiarlo al tocar el CSS -->
-  <link rel="stylesheet" href="styles.css?v=2">
+  <link rel="stylesheet" href="styles.css?v=3">
 </head>
 <body>
   <!-- Solo aparece al navegar con Tab -->
@@ -104,6 +104,11 @@
     <section id="sobre-mi" class="section wrap reveal">
       <h2 class="section-title"><span class="section-num">01.</span> Sobre mí</h2>
       <div class="about">
+        <!-- Hueco para mi foto. Cuando la tenga, cambiar el div por:
+             <img src="img/david.webp" alt="David Hernáez" width="480" height="600"> -->
+        <div class="about-photo">
+          <div class="photo-placeholder" aria-hidden="true">DH</div>
+        </div>
         <div class="about-text">
           <p>
             Empecé en la informática por el lado del <strong>hardware y los sistemas</strong>: soy Técnico en
@@ -121,37 +126,31 @@
             Y fuera del código: gatos, gimnasio y bastante competitividad. <a href="#fuera-del-codigo">Te lo enseño más abajo ↓</a>
           </p>
         </div>
-        <ul class="traits">
-          <li>
-            <span class="trait-icon" aria-hidden="true">⚡</span>
-            <div>
-              <strong class="trait-title">Aprendo rápido</strong>
-              <span class="trait-text">Autodidacta: aprendo herramientas nuevas aplicándolas en proyectos reales.</span>
-            </div>
-          </li>
-          <li>
-            <span class="trait-icon" aria-hidden="true">🔄</span>
-            <div>
-              <strong class="trait-title">Me adapto</strong>
-              <span class="trait-text">Del soporte técnico presencial al desarrollo en equipo, me ajusto a lo que pide cada puesto.</span>
-            </div>
-          </li>
-          <li>
-            <span class="trait-icon" aria-hidden="true">🧩</span>
-            <div>
-              <strong class="trait-title">Resuelvo problemas</strong>
-              <span class="trait-text">Analizo antes de actuar, tanto con código como con incidencias de usuarios.</span>
-            </div>
-          </li>
-          <li>
-            <span class="trait-icon" aria-hidden="true">🤝</span>
-            <div>
-              <strong class="trait-title">Trabajo en equipo</strong>
-              <span class="trait-text">Comunico con claridad y mantengo la calma cuando hay presión.</span>
-            </div>
-          </li>
-        </ul>
       </div>
+
+      <!-- Soft skills, cada una con un ejemplo real en vez de solo el adjetivo -->
+      <ul class="skills">
+        <li class="skill">
+          <span class="skill-icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><use href="#icon-bug"/></svg></span>
+          <h3 class="skill-title">Aprendo de mis errores</h3>
+          <p class="skill-text">Cuando algo falla, busco la causa en vez de parchearlo y seguir.</p>
+        </li>
+        <li class="skill">
+          <span class="skill-icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><use href="#icon-refresh"/></svg></span>
+          <h3 class="skill-title">Me adapto</h3>
+          <p class="skill-text">Pasé del soporte técnico presencial al desarrollo y me ajusto a lo que pide cada puesto.</p>
+        </li>
+        <li class="skill">
+          <span class="skill-icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><use href="#icon-search"/></svg></span>
+          <h3 class="skill-title">Resuelvo problemas</h3>
+          <p class="skill-text">En prácticas resolvía incidencias reales de hardware y software de usuarios.</p>
+        </li>
+        <li class="skill">
+          <span class="skill-icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><use href="#icon-users"/></svg></span>
+          <h3 class="skill-title">Trabajo en equipo</h3>
+          <p class="skill-text">En las prácticas de Flamenyco éramos un grupo y teníamos que coordinarnos: ahí aprendí a comunicarme con claridad.</p>
+        </li>
+      </ul>
     </section>
 
     <!-- Proyectos -->
@@ -285,7 +284,7 @@
         </div>
         <div class="stack-card">
           <h3>Herramientas</h3>
-          <div class="chips"><span class="is-main">Git</span><span>GitHub</span><span>GitHub Pages</span><span>IntelliJ IDEA</span><span>VS Code</span><span>npm</span></div>
+          <div class="chips"><span class="is-main">Git</span><span class="is-main">Claude Code</span><span>GitHub</span><span>IntelliJ IDEA</span><span>VS Code</span><span>npm</span></div>
         </div>
         <div class="stack-card">
           <h3>Sistemas</h3>
@@ -395,6 +394,11 @@
     <symbol id="icon-github" viewBox="0 0 24 24"><path fill="currentColor" d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.2.5-2.3 1.3-3.1-.2-.4-.6-1.6.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.6.2 2.8.1 3.2.8.8 1.3 1.9 1.3 3.2 0 4.6-2.8 5.6-5.5 5.9.5.4.9 1.1.9 2.2v3.3c0 .3.1.7.8.6A12 12 0 0 0 12 .3"/></symbol>
     <symbol id="icon-linkedin" viewBox="0 0 24 24"><path fill="currentColor" d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></symbol>
     <symbol id="icon-mail" viewBox="0 0 24 24"><path fill="currentColor" d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4-8 5-8-5V6l8 5 8-5z"/></symbol>
+    <!-- Iconos de línea para las soft skills -->
+    <symbol id="icon-bug" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m8 2 1.9 1.9"/><path d="M14.1 3.9 16 2"/><path d="M9 7.1V6a3 3 0 1 1 6 0v1.1"/><path d="M12 20c-3.3 0-6-2.7-6-6v-3a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v3c0 3.3-2.7 6-6 6z"/><path d="M12 20v-9"/><path d="M6 13H2"/><path d="M22 13h-4"/><path d="M3 21c0-2.1 1.7-3.9 3.8-4"/><path d="M21 21c0-2.1-1.7-3.9-3.8-4"/><path d="M3 5c0 2.1 1.6 3.8 3.6 4"/><path d="M21 5c0 2.1-1.6 3.8-3.6 4"/></g></symbol>
+    <symbol id="icon-refresh" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 15.5-6.2L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-15.5 6.2L3 16"/><path d="M3 21v-5h5"/></g></symbol>
+    <symbol id="icon-search" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></g></symbol>
+    <symbol id="icon-users" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="4"/><path d="M2 21v-1a6 6 0 0 1 6-6h2a6 6 0 0 1 6 6v1"/><path d="M16 4a4 4 0 0 1 0 8"/><path d="M22 21v-1a6 6 0 0 0-4-5.6"/></g></symbol>
   </svg>
 
   <script src="script.js?v=2" defer></script>

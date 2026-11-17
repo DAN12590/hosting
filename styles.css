@@ -466,12 +466,34 @@ p {
   color: var(--muted);
 }
 
-/* Sobre mí */
+/* Sobre mí: foto a la izquierda y texto a la derecha */
 .about {
   display: grid;
-  grid-template-columns: 1.2fr 1fr;
+  grid-template-columns: 240px 1fr;
+  align-items: start;
   gap: 40px;
   margin-top: 32px;
+}
+
+.about-photo img,
+.photo-placeholder {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  border: 1px solid var(--accent-border);
+  border-radius: var(--radius);
+  object-fit: cover;
+}
+
+/* Mientras no hay foto, las iniciales sobre un degradado */
+.photo-placeholder {
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, rgba(45, 212, 191, .18), rgba(34, 211, 238, .06)), var(--card);
+  color: var(--accent-light);
+  font-family: var(--mono);
+  font-size: 56px;
+  font-weight: 600;
 }
 
 .about-text p + p {
@@ -483,37 +505,56 @@ p {
   font-weight: 500;
 }
 
-.traits {
+/* Soft skills: 4 tarjetas en fila */
+.skills {
   display: grid;
-  gap: 12px;
-  margin: 0;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin: 40px 0 0;
   padding: 0;
   list-style: none;
 }
 
-.traits li {
-  display: flex;
-  align-items: flex-start;
-  gap: 14px;
-  padding: 14px 16px;
+.skill {
+  padding: 22px 20px;
   border: 1px solid var(--line);
-  border-radius: 12px;
+  border-radius: var(--radius);
   background: var(--card);
+  transition: border-color .2s ease, transform .2s ease;
 }
 
-.trait-icon {
-  font-size: 20px;
-  line-height: 1.3;
+.skill:hover {
+  border-color: var(--accent-hover);
+  transform: translateY(-3px);
 }
 
-.trait-title {
-  display: block;
+.skill-icon {
+  display: inline-grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  margin-bottom: 14px;
+  border: 1px solid var(--accent-border);
+  border-radius: 12px;
+  background: var(--accent-soft);
+  color: var(--accent);
 }
 
-.trait-text {
+.skill-icon .icon {
+  width: 22px;
+  height: 22px;
+}
+
+.skill-title {
+  margin-bottom: 6px;
+  color: var(--white);
+  font-size: 16px;
+}
+
+.skill-text {
   color: var(--muted);
   font-size: 14.5px;
-  line-height: 1.5;
+  line-height: 1.55;
 }
 
 /* Proyectos */
@@ -1293,7 +1334,15 @@ p {
     padding-bottom: 64px;
   }
 
-  .about,
+  .about {
+    grid-template-columns: 180px 1fr;
+    gap: 28px;
+  }
+
+  .skills {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
   .hobby,
   .hobby-reverse {
     grid-template-columns: 1fr;
@@ -1381,6 +1430,31 @@ p {
 @media (max-width: 640px) {
   .wrap {
     padding: 0 16px;
+  }
+
+  .about {
+    grid-template-columns: 1fr;
+  }
+
+  .about-photo {
+    width: 180px;
+  }
+
+  .skills {
+    grid-template-columns: 1fr;
+  }
+
+  /* En móvil el icono va a la izquierda para que ocupen menos alto */
+  .skill {
+    display: grid;
+    grid-template-columns: 44px 1fr;
+    column-gap: 14px;
+    padding: 16px;
+  }
+
+  .skill-icon {
+    grid-row: span 2;
+    margin-bottom: 0;
   }
 
   .teaser {
