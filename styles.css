@@ -805,70 +805,112 @@ p {
 }
 
 /* Fuera del código */
-.hobbies {
+.hobby {
   display: grid;
-  grid-template-columns: 2fr 1fr;
-  align-items: start; /* cada tarjeta con su altura, sin huecos vacíos */
-  gap: 18px;
-  margin-top: 32px;
+  grid-template-columns: 1.1fr 1fr;
+  align-items: center;
+  gap: 48px;
+  margin-top: 40px;
 }
 
-.hobby-card {
-  padding: 22px;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  background: var(--card);
+.hobby + .hobby {
+  margin-top: 72px;
 }
 
-.hobby-card h3 {
-  margin-bottom: 10px;
+.hobby-reverse {
+  grid-template-columns: 1fr 1.1fr;
+}
+
+.hobby-text h3 {
+  margin: 8px 0 14px;
   color: var(--white);
-  font-size: 18px;
+  font-size: 26px;
+}
+
+.hobby-text p + p {
+  margin-top: 12px;
 }
 
 .hobby-note {
-  margin-top: 14px;
+  margin-top: 16px;
   color: var(--muted);
   font-size: 14px;
 }
 
-.hobby-card p + p {
-  margin-top: 10px;
-}
-
-.hobby-photo {
-  display: block;
-  width: 100%;
-  height: auto;
-  margin-bottom: 14px;
-  border-radius: 10px;
-}
-
-.photo-strip {
+/* Collage: la foto grande ocupa las dos filas de la izquierda */
+.cat-collage {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: 1.3fr 1fr;
+  grid-template-rows: 1fr 1fr;
   gap: 12px;
-  margin-top: 18px;
+  height: 440px;
 }
 
-.photo-strip figure {
+.cat-main {
+  grid-row: span 2;
+}
+
+.cat-collage figure {
+  position: relative;
   margin: 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
 }
 
-.photo-strip img {
+.cat-collage img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .4s ease;
+}
+
+.cat-collage figure:hover img {
+  transform: scale(1.05);
+}
+
+/* Recorte de las fotos pequeñas para que se vea el gato y no el suelo */
+.cat-castanas img {
+  object-position: center 65%;
+}
+
+.cat-street img {
+  object-position: center 40%;
+}
+
+.cat-collage figcaption {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 28px 14px 10px;
+  background: linear-gradient(transparent, rgba(0, 0, 0, .75));
+  color: #fff;
+  font-size: 13px;
+}
+
+/* Ficha en JSON, mismo estilo que la terminal de arriba */
+.mini-json {
+  margin: 20px 0 0;
+  padding: 14px 18px;
+  overflow-x: auto;
+  border: 1px solid var(--line-2);
+  border-radius: 12px;
+  background: var(--surface-dark);
+  font-family: var(--mono);
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+/* Brillo morado, el color del rango Master */
+.rank-shot {
   display: block;
   width: 100%;
   height: auto;
-  aspect-ratio: 3 / 4;
-  object-fit: cover;
-  border-radius: 10px;
-}
-
-.photo-strip figcaption {
-  margin-top: 6px;
-  color: var(--muted);
-  font-size: 13px;
-  text-align: center;
+  border: 1px solid rgba(192, 132, 252, .35);
+  border-radius: var(--radius);
+  box-shadow: 0 0 60px -15px rgba(168, 85, 247, .5);
 }
 
 .chips {
@@ -1132,8 +1174,22 @@ p {
   }
 
   .about,
-  .hobbies {
+  .hobby,
+  .hobby-reverse {
     grid-template-columns: 1fr;
+  }
+
+  /* En una columna la imagen va siempre primero */
+  .hobby {
+    gap: 24px;
+  }
+
+  .hobby-media {
+    order: -1;
+  }
+
+  .rank-shot {
+    max-width: 520px;
   }
 
   .featured {
@@ -1197,6 +1253,10 @@ p {
 @media (max-width: 640px) {
   .wrap {
     padding: 0 16px;
+  }
+
+  .cat-collage {
+    height: 340px;
   }
 
   .project-grid,
