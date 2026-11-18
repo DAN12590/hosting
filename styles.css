@@ -317,15 +317,8 @@ p {
 }
 
 .status {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 26px;
-  padding: 6px 14px;
-  border: 1px solid var(--accent-border);
-  border-radius: 999px;
-  background: var(--accent-soft);
-  color: var(--code);
+  margin-bottom: 22px;
+  color: var(--muted);
   font-family: var(--mono);
   font-size: 13px;
 }
