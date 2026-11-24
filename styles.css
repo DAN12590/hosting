@@ -941,7 +941,7 @@ p {
   grid-template-columns: 1fr 1.1fr;
 }
 
-.hobby-text h3 {
+.hobby-text h2 {
   margin: 8px 0 14px;
   color: var(--white);
   font-size: 26px;
