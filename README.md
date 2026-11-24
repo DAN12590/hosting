@@ -13,10 +13,12 @@ styles.css            estilos (variables en :root, luego cada sección en orden)
 script.js             menú móvil, animaciones al hacer scroll, copiar email y repos de GitHub
 favicon.svg
 img/                  fotos de la sección "Fuera del código", en webp para que pesen poco
-demos/
-  warframe-tracker/   demo del tracker (JavaScript puro)
-  pdf-viewer/         build de Vite del PDF Photo Viewer, el código está en su propio repo
 ```
+
+Los proyectos tienen su propia web en un subdominio, publicada desde su repo:
+
+- https://pdf-viewer.danapps.dev/ ([PDF-photo-viewer](https://github.com/DAN12590/PDF-photo-viewer))
+- https://warframe-checker.danapps.dev/ ([Warframe-Primes-checker](https://github.com/DAN12590/Warframe-Primes-checker))
 
 ## Algunas decisiones
 
@@ -25,12 +27,3 @@ demos/
 - **IntersectionObserver** para las animaciones de entrada y para marcar en el menú la sección actual, en lugar de escuchar el evento `scroll`.
 - **Accesibilidad:** enlace para saltar al contenido, `aria-expanded` en el menú, foco visible con teclado y respeto a `prefers-reduced-motion`.
 - Si JavaScript está desactivado, la clase `no-js` hace que todo el contenido se vea igual, solo que sin animaciones.
-
-## Warframe Primes Tracker
-
-Para llevar la cuenta de qué piezas de cada objeto Prime tienes ya.
-
-- `data.js` tiene el catálogo. Las listas de piezas que se repiten (las de los Warframes, los rifles...) están definidas una sola vez en `PARTS`.
-- `app.js` guarda el estado en un objeto `state` y cada cambio vuelve a pintar la rejilla con `render()`.
-- El progreso se guarda en `localStorage` y se puede exportar o importar como JSON.
-- Los clics de las tarjetas se gestionan con un solo listener en la rejilla (delegación de eventos), porque las tarjetas se recrean en cada render.
