@@ -1,6 +1,6 @@
 # Portfolio
 
-Mi web personal, publicada con GitHub Pages: https://dan12590.github.io/hosting/
+Mi web personal, publicada con GitHub Pages: https://danapps.dev/
 
 Está hecha con HTML, CSS y JavaScript sin frameworks ni dependencias, así que no hace falta instalar ni compilar nada. Para verla en local basta con abrir `index.html` en el navegador.
 
